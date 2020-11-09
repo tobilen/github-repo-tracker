@@ -2,6 +2,7 @@ import * as React from 'react';
 import fetchMock from 'fetch-mock-jest';
 import * as ReactQuery from 'react-query';
 import { render, waitFor, screen, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { getRepositoriesUrl } from '../../api/github';
 import { getRepositoriesByStarsResponse } from '../../mocks/github';
 import { App } from './index';
@@ -80,6 +81,22 @@ describe('App', () => {
       expect(fetchMock).toHaveFetchedTimes(1);
 
       expect(screen.getAllByText('First Repository')).toHaveLength(2);
+    });
+
+    it('does send an additional request if reload button is pressed', async () => {
+      fetchMock.get(getRepositoriesUrl, getRepositoriesByStarsResponse);
+
+      render(<App />);
+
+      await waitFor(() => {
+        expect(fetchMock).toHaveGot(getRepositoriesUrl);
+      });
+
+      userEvent.click(screen.getByText('Reload data'));
+
+      await waitFor(() => {
+        expect(fetchMock).toHaveFetchedTimes(2);
+      });
     });
   });
 });
