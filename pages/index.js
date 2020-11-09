@@ -1,16 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Grommet } from 'grommet';
-
-const Title = styled.h1`
-  font-size: 50px;
-  color: ${({ theme }) => theme.colors.primary};
-`;
+import { Grommet, Heading } from 'grommet';
+import { grommet } from 'grommet/themes';
+import { App } from '../src/components/App';
 
 export default function Home() {
   return (
-    <Grommet>
-      <Title>My page</Title>
+    <Grommet theme={grommet}>
+      <Heading>Github Repository Tracker</Heading>
+      <App />
     </Grommet>
   );
 }
