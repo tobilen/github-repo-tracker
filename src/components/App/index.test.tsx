@@ -45,4 +45,20 @@ describe('App', () => {
       ),
     ).toBeInTheDocument();
   });
+
+  describe('caching', () => {
+    it('uses cache on subsequent renders', async () => {
+      fetchMock.get(getRepositoriesUrl, getRepositoriesByStarsResponse);
+
+      render(<App />);
+
+      await waitFor(() => {
+        expect(fetchMock).toHaveGot(getRepositoriesUrl);
+      });
+
+      render(<App />);
+
+      expect(fetchMock).toHaveFetchedTimes(1);
+    });
+  });
 });

@@ -12,7 +12,7 @@ export const App: React.FC = () => {
     GetRepositoriesByStarsResponse
   >(getRepositoriesUrl, getRepositoriesByStars, {
     retry: 0,
-    staleTime: 0,
+    staleTime: 10 * 60 * 1000,
   });
 
   if (status === QueryStatus.Error)
