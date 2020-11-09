@@ -16,6 +16,7 @@ export const App: React.FC = () => {
 
   if (repositories) {
     const rows: Row[] = repositories.items.map((item) => ({
+      id: item.id,
       name: item.full_name,
       stars: item.stargazers_count,
     }));

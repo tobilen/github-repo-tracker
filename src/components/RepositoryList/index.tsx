@@ -8,7 +8,7 @@ import {
   Text,
 } from 'grommet';
 
-export type Row = { name: string; stars: number };
+export type Row = { name: string; stars: number; id: number };
 export type Props = {
   caption: string;
   rows: Row[];
@@ -28,7 +28,7 @@ export const RepositoryList: React.FC<Props> = ({ caption, rows }) => (
     </TableHeader>
     <TableBody>
       {rows.map((row) => (
-        <TableRow>
+        <TableRow key={row.id}>
           <TableCell>{row.name}</TableCell>
           <TableCell>{row.stars}</TableCell>
         </TableRow>
