@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { QueryStatus, useQuery } from 'react-query';
+import { Button, Text } from 'grommet';
 import {
   getRepositoriesByStars,
   GetRepositoriesByStarsResponse,
@@ -8,12 +9,26 @@ import {
 import { RepositoryList, Row } from '../RepositoryList';
 
 export const App: React.FC = () => {
-  const { data, refetch, status, error } = useQuery<
+  const { data, refetch, status, error, isFetching } = useQuery<
     GetRepositoriesByStarsResponse
   >(getRepositoriesUrl, getRepositoriesByStars, {
     retry: 0,
     staleTime: 10 * 60 * 1000,
   });
+
+  if (isFetching)
+    return (
+      <>
+        <Button
+          type="button"
+          onClick={() => refetch()}
+          label="Reload data"
+          disabled
+        />
+        <br />
+        <Text>Loading...</Text>
+      </>
+    );
 
   if (status === QueryStatus.Error)
     return (
@@ -29,13 +44,11 @@ export const App: React.FC = () => {
 
     return (
       <>
+        <Button type="button" onClick={() => refetch()} label="Reload data" />
         <RepositoryList caption="Repositories" rows={rows} />
-        <button type="button" onClick={() => refetch()}>
-          Reload data
-        </button>
       </>
     );
   }
 
-  return <>Loading...</>;
+  return <Text>Loading...</Text>;
 };
