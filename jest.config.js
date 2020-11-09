@@ -4,7 +4,9 @@ module.exports = {
     '!**/*.d.ts',
     '!**/node_modules/**',
   ],
+  clearMocks: true,
   setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
+  moduleFileExtensions: ['tsx', 'ts', 'js', 'json'],
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',

@@ -1,0 +1,7 @@
+dist/
+node_modules/
+storybook/
+.yarn
+
+# Hidden folders are ignored by default but we want to include the .storybook folder
+!.storybook/

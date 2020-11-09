@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`

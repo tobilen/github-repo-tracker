@@ -9,7 +9,7 @@
     "build-storybook": "build-storybook --no-dll",
     "test": "yarn lint && yarn tsc && yarn jest",
     "jest": "jest --passWithNoTests",
-    "lint": "yarn stylelint && yarn eslint",
+    "lint": "yarn stylelint && yarn eslint .",
     "format": "prettier --write \"**/*.{js,ts,tsx}\" --ignore-path .gitignore",
     "stylelint": "stylelint \"./**/*.(js|ts|tsx)\""
   },
