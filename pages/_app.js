@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
+import { Grommet } from 'grommet';
+import { grommet } from 'grommet/themes';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -9,19 +11,13 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const theme = {
-  colors: {
-    primary: '#0070f3',
-  },
-};
-
 export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <ThemeProvider theme={theme}>
+      <Grommet theme={grommet}>
         <Component {...pageProps} />
-      </ThemeProvider>
+      </Grommet>
     </>
   );
 }
