@@ -1,6 +1,9 @@
 import fetchMock from 'fetch-mock-jest';
 import '@testing-library/jest-dom/extend-expect';
+import { queryCache } from 'react-query';
 
 afterEach(() => {
-  fetchMock.mockClear();
+  fetchMock.resetHistory();
+  fetchMock.resetBehavior();
+  queryCache.clear();
 });

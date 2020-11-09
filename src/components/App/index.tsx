@@ -1,42 +1,40 @@
 import * as React from 'react';
+import { QueryStatus, useQuery } from 'react-query';
 import {
   getRepositoriesByStars,
   GetRepositoriesByStarsResponse,
+  getRepositoriesUrl,
 } from '../../api/github';
 import { RepositoryList, Row } from '../RepositoryList';
 
 export const App: React.FC = () => {
-  const [repositories, setRepositories] = React.useState<
+  const { data, refetch, status, error } = useQuery<
     GetRepositoriesByStarsResponse
-  >();
-  const [status, setStatus] = React.useState<'loading' | 'error' | 'success'>(
-    'loading',
-  );
-  const [error, setError] = React.useState<Error>();
+  >(getRepositoriesUrl, getRepositoriesByStars, {
+    retry: 0,
+    staleTime: 0,
+  });
 
-  React.useEffect(() => {
-    getRepositoriesByStars()
-      .then((data) => {
-        setRepositories(data);
-        setStatus('success');
-      })
-      .catch((e) => {
-        setStatus('error');
-        setError(e);
-      });
-  }, []);
+  if (status === QueryStatus.Error)
+    return (
+      <>An Error occurred while fetching data: {(error as Error).message}</>
+    );
 
-  if (status === 'error')
-    return <>An Error occurred while fetching data: {error?.message}</>;
-
-  if (status === 'success' && repositories) {
-    const rows: Row[] = repositories.items.map((item) => ({
+  if (status === QueryStatus.Success && data) {
+    const rows: Row[] = data.items.map((item) => ({
       id: item.id,
       name: item.full_name,
       stars: item.stargazers_count,
     }));
 
-    return <RepositoryList caption="Repositories" rows={rows} />;
+    return (
+      <>
+        <RepositoryList caption="Repositories" rows={rows} />
+        <button type="button" onClick={() => refetch()}>
+          Reload data
+        </button>
+      </>
+    );
   }
 
   return <>Loading...</>;
