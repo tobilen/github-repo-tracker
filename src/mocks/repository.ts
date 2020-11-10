@@ -1,6 +1,6 @@
-import { Row } from '../components/RepositoryList';
+import { Repository } from '../components/RepositoryList';
 
-export const repositories: Row[] = [
+export const repositories: Repository[] = [
   { id: 1, name: 'First Repository', stars: 10, isStarred: true },
   { id: 2, name: 'Another Repository', stars: 378, isStarred: false },
   { id: 3, name: 'Popular Repository', stars: 2000, isStarred: false },

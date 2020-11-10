@@ -6,7 +6,7 @@ import {
   GetRepositoriesByStarsResponse,
   getRepositoriesUrl,
 } from '../../api/github';
-import { RepositoryList, Row } from '../RepositoryList';
+import { RepositoryList, Repository } from '../RepositoryList';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 export const App: React.FC = () => {
@@ -17,12 +17,11 @@ export const App: React.FC = () => {
     staleTime: 10 * 60 * 1000,
   });
 
-  const [starredRepositories, setStarredRepositories] = useLocalStorage<Row[]>(
-    'github-repo-tracker.starred',
-    [],
-  );
+  const [starredRepositories, setStarredRepositories] = useLocalStorage<
+    Repository[]
+  >('github-repo-tracker.starred', []);
 
-  const rows: Row[] = React.useMemo(
+  const rows: Repository[] = React.useMemo(
     () =>
       data
         ? data.items.map((item) => ({

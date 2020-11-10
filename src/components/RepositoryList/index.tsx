@@ -10,7 +10,7 @@ import {
 } from 'grommet';
 import { Star } from 'grommet-icons';
 
-export type Row = {
+export type Repository = {
   name: string;
   stars: number;
   id: number;
@@ -18,9 +18,9 @@ export type Row = {
 };
 export type Props = {
   caption: string;
-  rows: Row[];
-  onStar: (row: Row) => void;
-  onUnstar: (row: Row) => void;
+  rows: Repository[];
+  onStar: (row: Repository) => void;
+  onUnstar: (row: Repository) => void;
 };
 
 export const RepositoryList: React.FC<Props> = ({
