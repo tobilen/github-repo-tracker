@@ -56,7 +56,11 @@ export const RepositoryList: React.FC<Props> = ({
                   : 'Click to star this repository'
               }
               icon={<Star color={row.isStarred ? 'yellow' : 'darkgrey'} />}
-              onClick={row.isStarred ? () => onUnstar(row) : () => onStar(row)}
+              onClick={
+                row.isStarred
+                  ? () => onUnstar({ ...row, isStarred: false })
+                  : () => onStar({ ...row, isStarred: true })
+              }
               primary
             />
           </TableCell>

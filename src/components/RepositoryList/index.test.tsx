@@ -20,8 +20,12 @@ describe('RepositoryList', () => {
     userEvent.click(
       screen.getAllByLabelText('Click to star this repository')[0],
     );
-    expect(onStar).toHaveBeenCalledWith(repositories[1]);
+    expect(onStar).toHaveBeenCalledWith({
+      ...repositories[1],
+      isStarred: true,
+    });
   });
+
   it('invokes onUnstar when pressing button to un-star repository', () => {
     const onUnstar = jest.fn();
 
@@ -35,6 +39,9 @@ describe('RepositoryList', () => {
     );
 
     userEvent.click(screen.getByLabelText('Click to un-star this repository'));
-    expect(onUnstar).toHaveBeenCalledWith(repositories[0]);
+    expect(onUnstar).toHaveBeenCalledWith({
+      ...repositories[0],
+      isStarred: false,
+    });
   });
 });

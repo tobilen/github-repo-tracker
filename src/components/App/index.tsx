@@ -64,9 +64,8 @@ export const App: React.FC = () => {
           caption="Repositories"
           rows={rows}
           onStar={(repository) => {
-            const repositoryWithStarredSet = { ...repository, isStarred: true };
             setStarredRepositories(
-              [...starredRepositories, repositoryWithStarredSet].filter(
+              [...starredRepositories, repository].filter(
                 (value, index, self) => self.indexOf(value) === index,
               ),
             );
