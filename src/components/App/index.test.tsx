@@ -117,5 +117,29 @@ describe('App', () => {
         screen.getAllByLabelText('Click to un-star this repository'),
       ).toHaveLength(1);
     });
+
+    it('allows user to star a repository', async () => {
+      fetchMock.get(getRepositoriesUrl, getRepositoriesByStarsResponse);
+
+      render(<App />);
+
+      await waitFor(() => {
+        expect(fetchMock).toHaveGot(getRepositoriesUrl);
+      });
+
+      expect(
+        screen.queryByLabelText('Click to un-star this repository'),
+      ).not.toBeInTheDocument();
+
+      userEvent.click(
+        screen.getAllByLabelText('Click to star this repository')[0],
+      );
+
+      await waitFor(() => {
+        expect(localStorage.getItem('github-repo-tracker.starred')).toEqual(
+          JSON.stringify([getRepositoriesByStarsResponse.items[0]]),
+        );
+      });
+    });
   });
 });
