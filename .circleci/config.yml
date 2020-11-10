@@ -81,6 +81,9 @@ jobs:
   build-storybook:
     <<: *defaults
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 'fa:0b:63:dc:ed:4a:26:df:ca:dc:bf:cf:84:f3:49:8b'
       - checkout
       - restore_cache:
           name: Restore node modules
