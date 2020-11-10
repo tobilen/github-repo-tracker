@@ -5,6 +5,7 @@ import { render, waitFor, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { getRepositoriesUrl } from '../../api/github';
 import { getRepositoriesByStarsResponse } from '../../mocks/github';
+import { repositories } from '../../mocks/repository';
 import { App } from './index';
 
 describe('App', () => {
@@ -103,9 +104,10 @@ describe('App', () => {
   describe('starring', () => {
     it('marks starred repositories', async () => {
       fetchMock.get(getRepositoriesUrl, getRepositoriesByStarsResponse);
+
       localStorage.setItem(
         'github-repo-tracker.starred',
-        JSON.stringify([getRepositoriesByStarsResponse.items[0]]),
+        JSON.stringify([repositories[0]]),
       );
 
       render(<App />);
@@ -137,7 +139,7 @@ describe('App', () => {
 
       await waitFor(() => {
         expect(localStorage.getItem('github-repo-tracker.starred')).toEqual(
-          JSON.stringify([getRepositoriesByStarsResponse.items[0]]),
+          JSON.stringify([repositories[0]]),
         );
       });
     });
