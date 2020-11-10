@@ -6,4 +6,5 @@ afterEach(() => {
   fetchMock.resetHistory();
   fetchMock.resetBehavior();
   queryCache.clear();
+  localStorage.clear();
 });

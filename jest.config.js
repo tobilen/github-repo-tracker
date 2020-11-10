@@ -5,7 +5,7 @@ module.exports = {
     '!**/node_modules/**',
   ],
   clearMocks: true,
-  setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
+  setupFilesAfterEnv: ['<rootDir>/setupTests.js', 'jest-localstorage-mock'],
   moduleFileExtensions: ['tsx', 'ts', 'js', 'json'],
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   transform: {
