@@ -89,6 +89,9 @@ jobs:
       - run: # build storybook
           name: build-storybook
           command: yarn build-storybook
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: yarn deploy-storybook --ci
 
 workflows:
   version: 2

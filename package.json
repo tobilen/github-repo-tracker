@@ -11,7 +11,8 @@
     "jest": "jest --passWithNoTests",
     "lint": "yarn stylelint && yarn eslint .",
     "format": "prettier --write \"**/*.{js,ts,tsx}\" --ignore-path .gitignore",
-    "stylelint": "stylelint \"./**/*.(js|ts|tsx)\""
+    "stylelint": "stylelint \"./**/*.(js|ts|tsx)\"",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "author": "Tobias Lengsholz<dev@lengsholz.de>",
   "dependencies": {
@@ -31,6 +32,7 @@
     "@storybook/addon-essentials": "^6.0.28",
     "@storybook/addon-links": "^6.0.28",
     "@storybook/react": "^6.0.28",
+    "@storybook/storybook-deployer": "^2.8.7",
     "@testing-library/jest-dom": "^5.1.0",
     "@testing-library/react": "^11.1.1",
     "@testing-library/react-hooks": "^3.4.2",
