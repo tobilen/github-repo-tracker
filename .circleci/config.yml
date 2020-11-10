@@ -113,6 +113,9 @@ workflows:
       - heroku/deploy-via-git:
           requires:
             - build
+            - lint
+            - typecheck
+            - test
           filters:
             branches:
               only: master
