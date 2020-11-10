@@ -99,4 +99,21 @@ describe('App', () => {
       });
     });
   });
+
+  describe('starring', () => {
+    it('marks starred repositories', async () => {
+      fetchMock.get(getRepositoriesUrl, getRepositoriesByStarsResponse);
+      localStorage.setItem(
+        'github-repo-tracker.starred',
+        JSON.stringify([getRepositoriesByStarsResponse.items[0]]),
+      );
+
+      render(<App />);
+
+      await waitFor(() => {
+        expect(fetchMock).toHaveGot(getRepositoriesUrl);
+      });
+      expect(screen.getAllByText('starred')).toHaveLength(1);
+    });
+  });
 });

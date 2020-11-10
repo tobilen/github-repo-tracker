@@ -7,6 +7,7 @@ import {
   getRepositoriesUrl,
 } from '../../api/github';
 import { RepositoryList, Row } from '../RepositoryList';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 export const App: React.FC = () => {
   const { data, refetch, status, error, isFetching } = useQuery<
@@ -15,6 +16,26 @@ export const App: React.FC = () => {
     retry: 0,
     staleTime: 10 * 60 * 1000,
   });
+
+  const [starredRepositories] = useLocalStorage<Row[]>(
+    'github-repo-tracker.starred',
+    [],
+  );
+
+  const rows: Row[] = React.useMemo(
+    () =>
+      data
+        ? data.items.map((item) => ({
+            id: item.id,
+            name: item.full_name,
+            stars: item.stargazers_count,
+            isStarred: starredRepositories.some(
+              (starredRepository) => starredRepository.id === item.id,
+            ),
+          }))
+        : [],
+    [data, starredRepositories],
+  );
 
   if (isFetching)
     return (
@@ -36,12 +57,6 @@ export const App: React.FC = () => {
     );
 
   if (status === QueryStatus.Success && data) {
-    const rows: Row[] = data.items.map((item) => ({
-      id: item.id,
-      name: item.full_name,
-      stars: item.stargazers_count,
-    }));
-
     return (
       <>
         <Button type="button" onClick={() => refetch()} label="Reload data" />
