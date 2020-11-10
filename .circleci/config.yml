@@ -1,8 +1,10 @@
 version: 2.1
 defaults: &defaults
-  working_directory: ~/github95
+  working_directory: ~/github-repo-tracker
   docker:
     - image: cimg/node:14.14
+orbs:
+  heroku: circleci/heroku@0.0.10
 
 jobs:
   build:
@@ -17,17 +19,17 @@ jobs:
           name: Restore node modules
           keys:
             - node_modules-{{ checksum "yarn.lock" }}
-      - run: yarn install --frozen-lockfile --cache-folder ~/github95/.cache/yarn
+      - run: yarn install --frozen-lockfile --cache-folder ~/github-repo-tracker/.cache/yarn
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-cache-{{ checksum "yarn.lock" }}
           paths:
-            - ~/github95/.cache/yarn
+            - ~/github-repo-tracker/.cache/yarn
       - save_cache:
           name: Save node_modules
           key: node_modules-{{ checksum "yarn.lock" }}
           paths:
-            - ~/github95/node_modules
+            - ~/github-repo-tracker/node_modules
   lint:
     <<: *defaults
     steps:
@@ -104,7 +106,7 @@ jobs:
           name: Save app build
           key: build-{{ .Revision }}
           paths:
-            - ~/github95/dist
+            - ~/github-repo-tracker/dist
 
 workflows:
   version: 2
@@ -126,3 +128,9 @@ workflows:
       - compile:
           requires:
             - build
+      - heroku/deploy-via-git:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
