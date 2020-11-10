@@ -4,6 +4,10 @@ import { RepositoryList, Row } from './index';
 
 export default {
   title: 'RepositoryTable',
+  argTypes: {
+    onStar: { action: 'repository starred' },
+    onUnstar: { action: 'repository unstarred' },
+  },
 };
 
 const exampleRepositories: Row[] = [
@@ -14,6 +18,11 @@ const exampleRepositories: Row[] = [
   { id: 5, name: 'Its a Repository', stars: 501, isStarred: false },
 ];
 
-export const Default: Story = () => (
-  <RepositoryList caption="Repository List" rows={exampleRepositories} />
+export const Default: Story = (args) => (
+  <RepositoryList
+    caption="Repository List"
+    rows={exampleRepositories}
+    onStar={args.onStar}
+    onUnstar={args.onUnstar}
+  />
 );

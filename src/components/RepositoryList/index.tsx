@@ -19,9 +19,16 @@ export type Row = {
 export type Props = {
   caption: string;
   rows: Row[];
+  onStar: (row: Row) => void;
+  onUnstar: (row: Row) => void;
 };
 
-export const RepositoryList: React.FC<Props> = ({ caption, rows }) => (
+export const RepositoryList: React.FC<Props> = ({
+  caption,
+  rows,
+  onStar,
+  onUnstar,
+}) => (
   <Table caption={caption}>
     <TableHeader>
       <TableRow>
@@ -49,7 +56,7 @@ export const RepositoryList: React.FC<Props> = ({ caption, rows }) => (
                   : 'Click to star this repository'
               }
               icon={<Star color={row.isStarred ? 'yellow' : 'darkgrey'} />}
-              onClick={() => {}}
+              onClick={row.isStarred ? () => onUnstar(row) : () => onStar(row)}
               primary
             />
           </TableCell>

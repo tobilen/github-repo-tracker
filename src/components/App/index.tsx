@@ -60,7 +60,12 @@ export const App: React.FC = () => {
     return (
       <>
         <Button type="button" onClick={() => refetch()} label="Reload data" />
-        <RepositoryList caption="Repositories" rows={rows} />
+        <RepositoryList
+          caption="Repositories"
+          rows={rows}
+          onStar={() => {}}
+          onUnstar={() => {}}
+        />
       </>
     );
   }
