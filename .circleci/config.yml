@@ -89,24 +89,6 @@ jobs:
       - run: # build storybook
           name: build-storybook
           command: yarn build-storybook
-  compile:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache:
-          name: Restore node modules
-          keys:
-            - node_modules-{{ checksum "yarn.lock" }}
-      - run: # build
-          name: build
-          command: yarn build
-          environment:
-            NODE_OPTIONS: --max_old_space_size=8192
-      - save_cache:
-          name: Save app build
-          key: build-{{ .Revision }}
-          paths:
-            - ~/github-repo-tracker/dist
 
 workflows:
   version: 2
@@ -123,9 +105,6 @@ workflows:
           requires:
             - build
       - build-storybook:
-          requires:
-            - build
-      - compile:
           requires:
             - build
       - heroku/deploy-via-git:
