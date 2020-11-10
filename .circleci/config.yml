@@ -86,9 +86,6 @@ jobs:
           name: Restore node modules
           keys:
             - node_modules-{{ checksum "yarn.lock" }}
-      - run: # build storybook
-          name: build-storybook
-          command: yarn build-storybook
       - run:
           name: Deploy docs to gh-pages branch
           command: yarn deploy-storybook --ci
