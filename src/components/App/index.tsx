@@ -17,7 +17,7 @@ export const App: React.FC = () => {
     staleTime: 10 * 60 * 1000,
   });
 
-  const [starredRepositories] = useLocalStorage<Row[]>(
+  const [starredRepositories, setStarredRepositories] = useLocalStorage<Row[]>(
     'github-repo-tracker.starred',
     [],
   );
@@ -63,7 +63,14 @@ export const App: React.FC = () => {
         <RepositoryList
           caption="Repositories"
           rows={rows}
-          onStar={() => {}}
+          onStar={(repository) => {
+            const repositoryWithStarredSet = { ...repository, isStarred: true };
+            setStarredRepositories(
+              [...starredRepositories, repositoryWithStarredSet].filter(
+                (value, index, self) => self.indexOf(value) === index,
+              ),
+            );
+          }}
           onUnstar={() => {}}
         />
       </>
