@@ -70,7 +70,13 @@ export const App: React.FC = () => {
               ),
             );
           }}
-          onUnstar={() => {}}
+          onUnstar={(repository) => {
+            setStarredRepositories(
+              starredRepositories.filter(
+                (starredRepository) => starredRepository.id !== repository.id,
+              ),
+            );
+          }}
         />
       </>
     );

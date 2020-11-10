@@ -17,7 +17,6 @@ export const useLocalStorage = <T>(
   const setValue = (value: React.SetStateAction<T>): T => {
     const valueToStore = value instanceof Function ? value(storedValue) : value;
     try {
-      console.log('updating value', valueToStore);
       setStoredValue(valueToStore);
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
