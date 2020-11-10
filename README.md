@@ -3,7 +3,7 @@
 # Links
 
 - Application deployed on [heroku](https://github-repo-tracker.herokuapp.com/)
-- Storybook deployed on [gh-pages]()
+- Storybook deployed on [gh-pages](https://tobilen.github.io/github-repo-tracker/)
 
 # Local Development
 
