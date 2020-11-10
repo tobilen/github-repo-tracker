@@ -113,7 +113,9 @@ describe('App', () => {
       await waitFor(() => {
         expect(fetchMock).toHaveGot(getRepositoriesUrl);
       });
-      expect(screen.getAllByText('starred')).toHaveLength(1);
+      expect(
+        screen.getAllByLabelText('Click to un-star this repository'),
+      ).toHaveLength(1);
     });
   });
 });

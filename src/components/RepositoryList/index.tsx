@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -7,6 +8,7 @@ import {
   TableRow,
   Text,
 } from 'grommet';
+import { Star } from 'grommet-icons';
 
 export type Row = {
   name: string;
@@ -39,7 +41,18 @@ export const RepositoryList: React.FC<Props> = ({ caption, rows }) => (
         <TableRow key={row.id}>
           <TableCell>{row.name}</TableCell>
           <TableCell>{row.stars}</TableCell>
-          <TableCell>{row.isStarred ? 'starred' : ''}</TableCell>
+          <TableCell>
+            <Button
+              a11yTitle={
+                row.isStarred
+                  ? 'Click to un-star this repository'
+                  : 'Click to star this repository'
+              }
+              icon={<Star color={row.isStarred ? 'yellow' : 'darkgrey'} />}
+              onClick={() => {}}
+              primary
+            />
+          </TableCell>
         </TableRow>
       ))}
     </TableBody>
